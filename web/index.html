@@ -3,211 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Synapse - Protocolo de Elite | Gustavo Castro</title>
+    <title>Protocolo Synapse | Engenharia Neural de Elite</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #00d2ff;
-            --secondary: #3a7bd5;
-            --dark: #050505;
+        :root { --primary: #3b82f6; --dark: #020617; }
+        body { background-color: var(--dark); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+
+        /* VIDEO BACKGROUND SYSTEM */
+        #video-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; z-index: -50; opacity: 0.4; filter: brightness(0.4) saturate(1.2);
         }
 
-        body {
-            background-color: var(--dark);
-            color: #ffffff;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-        }
-
+        /* GLASSMORPHISM DE ALTO NÍVEL */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
+            background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(25px);
+            border: 1px solid rgba(59, 130, 246, 0.2); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .glass-panel:hover { border-color: rgba(59, 130, 246, 0.5); transform: translateY(-5px); }
+
+        /* NEON E ANIMAÇÕES */
+        .neon-text { text-shadow: 0 0 15px rgba(59, 130, 246, 0.8); }
+        .cta-glow {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            animation: pulse-glow 2.5s infinite;
+        }
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(59, 130, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
         }
 
-        .gradient-text {
-            background: linear-gradient(90deg, #00d2ff, #3a7bd5, #00d2ff);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradient-move 3s linear infinite;
-        }
+        /* TIPOGRAFIA ESCALÁVEL */
+        .ultra-title { font-size: clamp(3rem, 12vw, 8rem); line-height: 0.85; letter-spacing: -0.06em; }
+        .price-big { font-size: clamp(4rem, 18vw, 9rem); line-height: 0.8; }
 
-        @keyframes gradient-move {
-            to { background-position: 200% center; }
-        }
-
-        .glow-button {
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 0 0 rgba(0, 210, 255, 0);
-        }
-
-        .glow-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(0, 210, 255, 0.4);
-        }
-
-        .video-container {
-            position: relative;
-            box-shadow: 0 0 50px rgba(58, 123, 213, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        /* Animação de Entrada */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .status-dot {
-            height: 8px;
-            width: 8px;
-            background-color: #10b981;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 8px;
-            box-shadow: 0 0 10px #10b981;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.5); opacity: 0.5; }
-            100% { transform: scale(1); opacity: 1; }
-        }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
 
-    <nav class="fixed top-0 w-full z-50 p-6 flex justify-between items-center glass-panel rounded-none border-t-0 border-x-0">
-        <div class="flex items-center">
-            <span class="status-dot"></span>
-            <span class="text-[10px] tracking-widest uppercase font-bold text-gray-400">Servidores Ativos - Latência 12ms</span>
-        </div>
-        <div class="text-xl font-black tracking-tighter">SYN<span class="text-blue-500">APSE</span></div>
-    </nav>
+    <video autoplay muted loop playsinline id="video-bg">
+        <source src="../assets/img/vsl-parte1.mp4" type="video/mp4">
+    </video>
 
-    <main class="relative pt-32 pb-20 px-4">
-        <div class="max-w-5xl mx-auto text-center">
-            <h2 class="text-blue-400 text-sm font-bold tracking-[0.3em] uppercase mb-4 reveal">Protocolo Gustavo Castro v2.0</h2>
-            <h1 class="text-5xl md:text-7xl font-black mb-8 leading-tight reveal">
-                A Engenharia por trás dos <br>
-                <span class="gradient-text">Milhões Digitais</span>
+    <div class="fixed top-0 w-full bg-blue-600/20 backdrop-blur-xl border-b border-blue-500/30 py-2 text-center text-[9px] font-black tracking-[0.4em] uppercase z-[100]">
+        Aviso: Licenças Vitalícias limitadas para o seu IP: <span id="ip-display">Carregando...</span>
+    </div>
+
+    <main class="relative z-10 pt-24">
+        
+        <section class="max-w-6xl mx-auto px-6 text-center mb-24 reveal">
+            <div class="inline-block glass-panel px-6 py-2 rounded-full border-blue-500/30 mb-8">
+                <p class="text-blue-400 text-[10px] font-black tracking-[0.4em] uppercase mono">Synapse_Engine_Active_v2.1</p>
+            </div>
+            
+            <h1 class="ultra-title font-black mb-10">
+                O FIM DA <br> <span class="text-blue-500 neon-text italic">ESCAVIDÃO DIGITAL.</span>
             </h1>
             
-            <div class="video-container rounded-3xl overflow-hidden mb-12 max-w-4xl mx-auto reveal">
-                <div class="aspect-video bg-neutral-900 flex items-center justify-center group cursor-pointer">
-                    <div class="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center glow-button">
-                        <svg class="w-8 h-8 text-white fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <p class="text-gray-400 text-lg md:text-2xl max-w-3xl mx-auto mb-16 font-light">
+                Não gaste sua vida sendo o motor. <br>
+                <span class="text-white font-bold italic underline decoration-blue-500">Torne-se o arquiteto que comanda a máquina.</span>
+            </p>
+
+            <div class="max-w-5xl mx-auto glass-panel p-3 rounded-[3rem] neon-border mb-16">
+                <div class="aspect-video rounded-[2.8rem] overflow-hidden relative bg-black shadow-2xl">
+                    <video autoplay muted loop playsinline class="w-full h-full object-cover">
+                        <source src="../assets/img/vsl-parte2.mp4" type="video/mp4">
+                    </video>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-8 left-10 text-left">
+                        <p class="text-blue-500 font-mono text-[10px] mb-2 animate-pulse">● LIVE_STREAM: PROTOCOLO_SYNAPSE_CORE</p>
+                        <h2 class="text-2xl font-black uppercase italic tracking-tighter">Interface Operacional v1.0</h2>
                     </div>
-                    </div>
+                </div>
             </div>
 
-            <div class="reveal">
-                <button class="glow-button bg-white text-black px-12 py-6 rounded-full font-black text-xl mb-4 uppercase tracking-tighter">
-                    Quero Ativar o Protocolo Agora
-                </button>
-                <p class="text-gray-500 text-sm flex items-center justify-center gap-2">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"></path></svg>
-                    Acesso Criptografado e Vitalício
-                </p>
+            <a href="https://pay.hotmart.com/V103656596Y" class="cta-glow inline-block px-12 py-7 rounded-2xl text-2xl font-black uppercase tracking-tighter text-white">
+                Ativar Meus Agentes Agora
+            </a>
+        </section>
+
+        <section class="max-w-6xl mx-auto py-24 px-6 reveal">
+            <h3 class="text-4xl font-black mb-16 tracking-tighter text-center uppercase">Resultados <span class="text-blue-500">do Ecossistema:</span></h3>
+            <div class="grid md:grid-cols-2 gap-10">
+                <div class="glass-panel p-8 rounded-[2.5rem] border-l-4 border-blue-500">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center font-bold">MV</div>
+                        <div><p class="font-bold">M. Vasconcelos</p><p class="text-blue-500 text-[10px] mono">ID: #SYN-9982</p></div>
+                    </div>
+                    <p class="text-gray-400 italic">"Ativei o agente de prospecção e fechei R$ 7.000 em contratos na primeira semana. A IA trabalha, eu gerencio."</p>
+                </div>
+                <div class="glass-panel p-8 rounded-[2.5rem] border-l-4 border-blue-500">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-12 h-12 bg-indigo-600 rounded-lg flex items-center justify-center font-bold">RG</div>
+                        <div><p class="font-bold">Ricardo G.</p><p class="text-blue-500 text-[10px] mono">ID: #SYN-1240</p></div>
+                    </div>
+                    <p class="text-gray-400 italic">"A clonagem de voz economizou 40 horas de estúdio. O retorno sobre o investimento foi pago em 3 horas."</p>
+                </div>
             </div>
-        </div>
+        </section>
+
+        <section class="max-w-4xl mx-auto py-24 px-6 reveal text-center">
+            <div class="glass-panel p-16 md:p-24 rounded-[4rem] border-blue-500/40 relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-10 opacity-5 font-black text-9xl italic">SYNAPSE</div>
+                <h4 class="text-blue-500 font-black text-xs uppercase tracking-[0.5em] mb-10 italic">Oportunidade Vitalícia</h4>
+                <div class="text-gray-600 line-through text-2xl mb-4 italic mono">De R$ 997,00</div>
+                <div class="price-big font-black mb-8 tracking-tighter text-white">
+                    <span class="text-4xl md:text-5xl align-top italic text-blue-500">12x</span> 49,70
+                </div>
+                <p class="text-2xl text-gray-400 mb-12 italic font-light">ou <span class="text-white font-black underline decoration-blue-500">R$ 497,00</span> à vista</p>
+                <a href="https://pay.hotmart.com/V103656596Y" class="cta-glow block w-full py-8 rounded-3xl text-3xl font-black uppercase shadow-2xl">
+                    Garantir Minha Vaga
+                </a>
+            </div>
+        </section>
+
     </main>
 
-    <section class="py-20 px-4">
-        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="glass-panel p-8 reveal">
-                <div class="text-blue-500 mb-4 text-3xl">01</div>
-                <h3 class="text-xl font-bold mb-2">Escalabilidade Brutal</h3>
-                <p class="text-gray-400 text-sm">Estrutura preparada para aguentar 10.000 acessos simultâneos sem queda de conversão.</p>
-            </div>
-            <div class="glass-panel p-8 reveal">
-                <div class="text-blue-500 mb-4 text-3xl">02</div>
-                <h3 class="text-xl font-bold mb-2">Algoritmo Preditivo</h3>
-                <p class="text-gray-400 text-sm">Rastreamento de comportamento do usuário para antecipar a dor e oferecer a solução.</p>
-            </div>
-            <div class="glass-panel p-8 reveal">
-                <div class="text-blue-500 mb-4 text-3xl">03</div>
-                <h3 class="text-xl font-bold mb-2">Engenharia Social</h3>
-                <p class="text-gray-400 text-sm">Gatilhos mentais embutidos em cada pixel do design para máxima persuasão.</p>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-10 text-center border-t border-white/5">
-        <p class="text-[10px] text-gray-600 tracking-widest uppercase">
-            © 2024 GUSTAVO CASTRO & SÓCIO DÓLAR. TODOS OS DIREITOS RESERVADOS.
-        </p>
+    <footer class="py-20 text-center opacity-30 border-t border-white/5">
+        <p class="mono text-[10px] tracking-[1em] uppercase">© 2026 IMPÉRIO SYNAPSE // GUSTAVO & DÓLAR</p>
     </footer>
 
     <script>
-        const SynapseApp = {
+        const Synapse = {
             init() {
-                this.revealOnScroll();
-                this.salesEngine();
+                this.reveal();
+                this.notifications();
                 this.protection();
-                console.log("Sócio Dólar: Sistema Inicializado.");
+                this.getIP();
             },
-
-            // Sistema de Aparição das seções
-            revealOnScroll() {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('active');
-                        }
-                    });
+            reveal() {
+                const obs = new IntersectionObserver((es) => {
+                    es.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
                 }, { threshold: 0.1 });
-
-                document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+                document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
             },
-
-            // Engine de Prova Social (Aumenta vendas)
-            salesEngine() {
-                const names = ['André', 'Fernanda', 'Lucas', 'Beatriz', 'Ricardo', 'Patrícia'];
-                const places = ['Goiânia', 'São Paulo', 'Belo Horizonte', 'Lisboa', 'Flórida'];
-
+            notifications() {
+                const names = ['Marcos', 'Julia', 'Roberto', 'Ana', 'Gustavo'];
                 setInterval(() => {
-                    const name = names[Math.floor(Math.random() * names.length)];
-                    const place = places[Math.floor(Math.random() * places.length)];
-                    this.showNotification(`${name} de ${place} ativou o Synapse agora mesmo!`);
-                }, 12000);
+                    const n = names[Math.floor(Math.random()*names.length)];
+                    this.toast(`Novo acesso liberado para ${n}...`);
+                }, 15000);
             },
-
-            showNotification(msg) {
-                const notification = document.createElement('div');
-                notification.className = 'fixed bottom-5 left-5 glass-panel px-6 py-4 z-50 text-xs font-bold border-l-4 border-blue-500 translate-y-20 transition-all duration-500 ease-out';
-                notification.innerHTML = `<span class="text-blue-500">🔥</span> ${msg}`;
-                document.body.appendChild(notification);
-                
-                setTimeout(() => notification.classList.remove('translate-y-20'), 100);
-                setTimeout(() => {
-                    notification.classList.add('translate-y-20');
-                    setTimeout(() => notification.remove(), 500);
-                }, 4500);
+            toast(m) {
+                const t = document.createElement('div');
+                t.className = 'fixed bottom-5 left-5 glass-panel px-6 py-4 z-[100] text-[10px] font-bold border-l-4 border-blue-500 animate-bounce';
+                t.innerHTML = `<span class="text-blue-500">●</span> ${m}`;
+                document.body.appendChild(t);
+                setTimeout(() => t.remove(), 5000);
             },
-
-            // Proteção contra curiosos
             protection() {
-                document.addEventListener('contextmenu', event => event.preventDefault());
-                document.onkeydown = function(e) {
-                    if(e.keyCode == 123) return false; // F12
-                    if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
-                }
+                document.addEventListener('contextmenu', e => e.preventDefault());
+                document.onkeydown = (e) => { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73)) return false; };
+            },
+            getIP() {
+                fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => {
+                    document.getElementById('ip-display').innerText = d.ip;
+                });
             }
         };
-
-        window.onload = () => SynapseApp.init();
+        window.onload = () => Synapse.init();
     </script>
 </body>
 </html>
