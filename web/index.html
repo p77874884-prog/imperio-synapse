@@ -3,139 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protocolo Synapse | Engenharia Neural de Elite</title>
+    <title>Protocolo Synapse | Engenharia Neural</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <style>
         :root { --accent: #3b82f6; --bg: #020617; }
         body { background-color: var(--bg); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
-        .mono { font-family: 'JetBrains Mono', monospace; }
         
-        /* Glassmorphism de Próxima Geração */
-        .glass-premium { 
-            background: rgba(15, 23, 42, 0.4); 
-            backdrop-filter: blur(20px); 
-            border: 1px solid rgba(59, 130, 246, 0.1);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+        /* VIDEO DE FUNDO - CORRIGIDO */
+        #video-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; z-index: -20; opacity: 0.5; filter: brightness(0.6) contrast(1.2);
         }
 
-        .neon-glow { filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.6)); }
-        
-        /* Botão de Impacto */
+        .glass-premium { 
+            background: rgba(15, 23, 42, 0.7); 
+            backdrop-filter: blur(20px); 
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
         .btn-cta {
             background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.4);
         }
-        .btn-cta:hover { transform: scale(1.05) translateY(-5px); box-shadow: 0 0 40px rgba(59, 130, 246, 0.4); }
-
-        /* Animação de Scan */
-        .scanline {
-            width: 100%; height: 2px; background: rgba(59, 130, 246, 0.2);
-            position: absolute; animation: scan 4s linear infinite; z-index: 10;
-        }
-        @keyframes scan { from { top: 0%; } to { top: 100%; } }
+        .btn-cta:hover { transform: scale(1.05); box-shadow: 0 0 50px rgba(59, 130, 246, 0.6); }
 
         .price-hero { font-size: clamp(4rem, 18vw, 8rem); line-height: 0.8; letter-spacing: -0.05em; }
     </style>
 </head>
-<body class="selection:bg-blue-500 selection:text-white">
+<body>
 
-    <div class="fixed inset-0 -z-20 bg-[#000]"></div>
-    <div class="fixed inset-0 -z-10 opacity-40 mix-blend-screen">
-        <video autoplay muted loop playsinline class="w-full h-full object-cover">
-            <source src="../assets/img/vsl-parte1.mp4" type="video/mp4">
-        </video>
-    </div>
+    <video autoplay muted loop playsinline id="video-bg">
+        <source src="../assets/img/vsl-parte1.mp4" type="video/mp4">
+    </video>
 
-    <main class="max-w-5xl mx-auto px-6 pt-24 pb-32">
+    <main class="max-w-5xl mx-auto px-6 pt-20 pb-32">
         
-        <header class="text-center mb-24 relative">
-            <div class="inline-block glass-premium px-4 py-1 rounded-full text-blue-400 text-[10px] font-black mb-8 tracking-[0.4em] uppercase border-blue-500/20">
-                Acesso_Restrito_v1.0.4
+        <header class="text-center mb-16">
+            <div class="inline-block glass-premium px-4 py-1 rounded-full text-blue-400 text-[10px] font-black mb-8 tracking-[0.4em] uppercase">
+                Sistema_Synapse_v1.0
             </div>
             <h1 class="text-6xl md:text-8xl font-black mb-8 leading-none tracking-tighter">
-                DEIXE DE SER O <br> <span class="text-blue-500 neon-glow italic">OPERÁRIO.</span>
+                ESCRAVIZE A <br> <span class="text-blue-500 italic">TECNOLOGIA.</span>
             </h1>
-            <p class="text-gray-400 text-xl md:text-2xl max-w-2xl mx-auto font-light leading-relaxed">
-                O Protocolo Synapse instala um exército de agentes autônomos que mineram oportunidades enquanto você foca na estratégia.
-            </p>
         </header>
 
-        <section class="glass-premium rounded-[3rem] p-10 md:p-20 mb-32 relative overflow-hidden">
-            <div class="scanline"></div>
-            <div class="grid md:grid-cols-2 gap-16 items-center">
+        <section class="max-w-4xl mx-auto mb-24">
+            <div class="glass-premium p-2 rounded-[2.5rem] border border-blue-500/30 shadow-2xl shadow-blue-500/10">
+                <div class="aspect-video rounded-[2.2rem] overflow-hidden bg-black relative">
+                    <video autoplay muted loop playsinline class="w-full h-full object-cover">
+                        <source src="../assets/img/vsl-parte2.mp4" type="video/mp4">
+                    </video>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-6 left-8">
+                        <p class="text-blue-500 font-mono text-[10px] animate-pulse">● LIVE_FEED: AGENTE_AUTONOMO_ATIVO</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="glass-premium rounded-[3rem] p-10 md:p-16 mb-24 relative overflow-hidden text-center">
+            <div class="grid md:grid-cols-2 gap-12 items-center text-left">
                 <div>
-                    <h2 class="text-4xl font-black mb-6 italic tracking-tighter">CONDIÇÃO <br> <span class="text-blue-500">IRREVERSÍVEL.</span></h2>
-                    <ul class="space-y-6 text-gray-300 font-medium">
-                        <li class="flex items-center space-x-4">
-                            <span class="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-500 text-xs">✓</span>
-                            <span>Licença Vitalícia de Agentes Autônomos</span>
-                        </li>
-                        <li class="flex items-center space-x-4">
-                            <span class="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-500 text-xs">✓</span>
-                            <span>Biblioteca de Clones de Voz (ElevenLabs)</span>
-                        </li>
-                        <li class="flex items-center space-x-4">
-                            <span class="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-500 text-xs">✓</span>
-                            <span>Scripts de Escala de 6 Dígitos</span>
-                        </li>
+                    <h2 class="text-3xl font-black mb-6 italic">OFERTA <span class="text-blue-500">LIMITADA.</span></h2>
+                    <ul class="space-y-4 text-gray-300 text-sm">
+                        <li><span class="text-blue-500 mr-2">✓</span> Licença Vitalícia Synapse</li>
+                        <li><span class="text-blue-500 mr-2">✓</span> Framework de Escala Automatizada</li>
+                        <li><span class="text-blue-500 mr-2">✓</span> Acesso ao Círculo de Elite</li>
                     </ul>
                 </div>
-                
-                <div class="text-center md:text-right relative">
-                    <div class="text-gray-600 line-through text-2xl mb-2 mono">R$ 997.00</div>
+                <div class="text-center md:text-right">
+                    <div class="text-gray-600 line-through text-xl mb-2">R$ 997,00</div>
                     <div class="flex items-start justify-center md:justify-end mb-4">
-                        <span class="text-3xl font-black mt-4 mr-2 text-blue-500">12x</span>
-                        <span class="price-hero font-black text-white">49,70</span>
+                        <span class="text-3xl font-black mt-4 mr-2 text-blue-500 italic">12x</span>
+                        <span class="price-hero font-black">49,70</span>
                     </div>
-                    <p class="text-2xl text-gray-400">ou <span class="text-white font-bold tracking-tight">R$ 497 à vista</span></p>
+                    <p class="text-xl text-gray-400">ou R$ 497 à vista</p>
                 </div>
             </div>
 
-            <a href="https://pay.hotmart.com/V103656596Y" class="btn-cta mt-16 block w-full text-center py-8 rounded-2xl font-black text-3xl md:text-4xl uppercase tracking-tighter shadow-blue-500/40">
-                Ativar Protocolo Agora
+            <a href="https://pay.hotmart.com/V103656596Y" class="btn-cta mt-12 block w-full text-center py-8 rounded-2xl font-black text-3xl uppercase tracking-tighter">
+                Ativar Meu Acesso Agora
             </a>
         </section>
 
-        <h3 class="text-4xl font-black mb-16 tracking-tighter text-center uppercase">Atividade Recente <span class="text-blue-500">do Ecossistema:</span></h3>
-        
         <div class="grid md:grid-cols-2 gap-8">
-            <div class="glass-premium p-8 rounded-[2rem] border-l-4 border-blue-500">
-                <div class="flex items-center space-x-4 mb-6">
-                    <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-900 rounded-xl"></div>
-                    <div>
-                        <p class="font-black text-lg">M. Vasconcelos</p>
-                        <p class="text-blue-500 text-xs mono">ID: #SYN-9982</p>
-                    </div>
-                </div>
-                <p class="text-gray-300 leading-relaxed italic">"O agente de prospecção via LinkedIn que instalei rodou 24h. Fechei dois contratos de R$ 3.500 cada na primeira semana de ativação."</p>
-                <div class="mt-6 pt-6 border-t border-white/5 flex justify-between text-[10px] mono text-gray-500">
-                    <span>RESULTADO: + R$ 7.000,00</span>
-                    <span>TEMPO: 07 DIAS</span>
-                </div>
+            <div class="glass-premium p-8 rounded-[2rem] border-l-4 border-blue-600">
+                <p class="font-black text-blue-500 mb-2">M. Vasconcelos</p>
+                <p class="text-gray-300 italic">"Ativei o agente de prospecção e o resultado foi imediato. R$ 7.000,00 em contratos na primeira semana."</p>
             </div>
-
-            <div class="glass-premium p-8 rounded-[2rem] border-l-4 border-blue-500">
-                <div class="flex items-center space-x-4 mb-6">
-                    <div class="w-14 h-14 bg-gradient-to-br from-blue-700 to-black rounded-xl"></div>
-                    <div>
-                        <p class="font-black text-lg">Ricardo G.</p>
-                        <p class="text-blue-500 text-xs mono">ID: #SYN-1240</p>
-                    </div>
-                </div>
-                <p class="text-gray-300 leading-relaxed italic">"O framework de voz clonada economizou 40 horas de estúdio. O retorno sobre o investimento foi pago em exatamente 3 horas."</p>
-                <div class="mt-6 pt-6 border-t border-white/5 flex justify-between text-[10px] mono text-gray-500">
-                    <span>STATUS: OPERAÇÃO ESCALADA</span>
-                    <span>LUCRO: 40H ECONOMIZADAS</span>
-                </div>
+            <div class="glass-premium p-8 rounded-[2rem] border-l-4 border-blue-600">
+                <p class="font-black text-blue-500 mb-2">Ricardo G.</p>
+                <p class="text-gray-300 italic">"A clonagem de voz mudou o jogo. O que eu levava dias para gravar, a IA faz em segundos."</p>
             </div>
         </div>
 
     </main>
-
-    <footer class="text-center py-20 opacity-30">
-        <p class="mono text-xs tracking-[1em]">IMPERIO SYNAPSE // GUSTAVO & DOLAR</p>
-    </footer>
-
 </body>
 </html>
