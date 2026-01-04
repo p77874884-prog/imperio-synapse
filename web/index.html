@@ -1,170 +1,213 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protocolo Synapse | Comando Neural de Elite</title>
+    <title>Synapse - Protocolo de Elite | Gustavo Castro</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --blue-main: #3b82f6; --blue-dark: #1d4ed8; --bg-dark: #020617; }
-        body { background-color: var(--bg-dark); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
-        .mono { font-family: 'JetBrains Mono', monospace; }
-
-        /* VIDEO BACKGROUND SYSTEM */
-        #video-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; z-index: -50; opacity: 0.45; filter: brightness(0.5) saturate(1.2);
+        :root {
+            --primary: #00d2ff;
+            --secondary: #3a7bd5;
+            --dark: #050505;
         }
 
-        /* GLASSMORPHISM UI */
+        body {
+            background-color: var(--dark);
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
         .glass-panel {
-            background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(25px);
-            border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 2rem;
-            transition: all 0.4s ease;
-        }
-        .glass-panel:hover { border-color: rgba(59, 130, 246, 0.5); box-shadow: 0 0 40px rgba(59, 130, 246, 0.15); }
-
-        /* NEON ELEMENTS */
-        .neon-text { text-shadow: 0 0 15px rgba(59, 130, 246, 0.8), 0 0 30px rgba(59, 130, 246, 0.4); }
-        .neon-border { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
-
-        /* BUTTONS */
-        .cta-master {
-            background: linear-gradient(135deg, var(--blue-main) 0%, var(--blue-dark) 100%);
-            animation: pulse-glow 2.5s infinite; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .cta-master:hover { transform: scale(1.05) translateY(-5px); filter: brightness(1.2); }
-
-        @keyframes pulse-glow {
-            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
-            70% { box-shadow: 0 0 0 20px rgba(59, 130, 246, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
         }
 
-        /* TYPOGRAPHY SCALING */
-        .ultra-title { font-size: clamp(3.5rem, 12vw, 9rem); line-height: 0.85; letter-spacing: -0.06em; }
-        .price-big { font-size: clamp(4.5rem, 18vw, 10rem); line-height: 0.8; }
+        .gradient-text {
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5, #00d2ff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient-move 3s linear infinite;
+        }
 
-        /* CUSTOM SCROLLBAR */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #020617; }
-        ::-webkit-scrollbar-thumb { background: #1e3a8a; border-radius: 10px; }
+        @keyframes gradient-move {
+            to { background-position: 200% center; }
+        }
+
+        .glow-button {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 0 rgba(0, 210, 255, 0);
+        }
+
+        .glow-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.4);
+        }
+
+        .video-container {
+            position: relative;
+            box-shadow: 0 0 50px rgba(58, 123, 213, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Animação de Entrada */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .status-dot {
+            height: 8px;
+            width: 8px;
+            background-color: #10b981;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            box-shadow: 0 0 10px #10b981;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
+        }
     </style>
 </head>
 <body>
 
-    <video autoplay muted loop playsinline id="video-bg">
-        <source src="../assets/img/vsl-parte1.mp4" type="video/mp4">
-    </video>
+    <nav class="fixed top-0 w-full z-50 p-6 flex justify-between items-center glass-panel rounded-none border-t-0 border-x-0">
+        <div class="flex items-center">
+            <span class="status-dot"></span>
+            <span class="text-[10px] tracking-widest uppercase font-bold text-gray-400">Servidores Ativos - Latência 12ms</span>
+        </div>
+        <div class="text-xl font-black tracking-tighter">SYN<span class="text-blue-500">APSE</span></div>
+    </nav>
 
-    <div class="w-full bg-blue-600/20 backdrop-blur-md border-b border-blue-500/30 py-2 text-center text-[10px] font-bold tracking-[0.4em] uppercase z-50 relative">
-        Aviso: 14 licenças restantes para o seu IP.
-    </div>
-
-    <main class="relative z-10">
-        
-        <section class="max-w-6xl mx-auto pt-32 pb-24 px-6 text-center">
-            <div class="inline-block glass-panel px-6 py-2 mb-10 border-blue-500/40">
-                <p class="text-blue-400 text-[10px] font-black tracking-[0.5em] uppercase mono">Status: Protocolo_Online_v2.0</p>
-            </div>
-            
-            <h1 class="ultra-title font-black mb-12">
-                PARE DE SER <br> <span class="text-blue-500 neon-text">OPERÁRIO.</span>
+    <main class="relative pt-32 pb-20 px-4">
+        <div class="max-w-5xl mx-auto text-center">
+            <h2 class="text-blue-400 text-sm font-bold tracking-[0.3em] uppercase mb-4 reveal">Protocolo Gustavo Castro v2.0</h2>
+            <h1 class="text-5xl md:text-7xl font-black mb-8 leading-tight reveal">
+                A Engenharia por trás dos <br>
+                <span class="gradient-text">Milhões Digitais</span>
             </h1>
             
-            <p class="text-gray-400 text-xl md:text-3xl max-w-3xl mx-auto mb-16 font-light leading-relaxed">
-                A Inteligência Artificial não vai te substituir. <br>
-                <span class="text-white font-bold italic">Mas o homem que usa IA vai.</span>
-            </p>
-
-            <div class="max-w-5xl mx-auto glass-panel p-3 mb-20 neon-border">
-                <div class="aspect-video rounded-[1.8rem] overflow-hidden relative bg-black">
-                    <video autoplay muted loop playsinline class="w-full h-full object-cover">
-                        <source src="../assets/img/vsl-parte2.mp4" type="video/mp4">
-                    </video>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                    <div class="absolute bottom-10 left-10 text-left">
-                        <p class="text-blue-500 font-mono text-xs mb-2">>> DEMONSTRAÇÃO_DO_SISTEMA_AGENTE</p>
-                        <h2 class="text-3xl font-black uppercase italic">Synapse Core Engine</h2>
+            <div class="video-container rounded-3xl overflow-hidden mb-12 max-w-4xl mx-auto reveal">
+                <div class="aspect-video bg-neutral-900 flex items-center justify-center group cursor-pointer">
+                    <div class="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center glow-button">
+                        <svg class="w-8 h-8 text-white fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </div>
-                </div>
+                    </div>
             </div>
 
-            <a href="https://pay.hotmart.com/V103656596Y" class="cta-master inline-block px-16 py-8 rounded-3xl text-3xl font-black uppercase tracking-tighter text-white">
-                Ativar Meu Exército de Agentes
-            </a>
-        </section>
-
-        <section class="max-w-6xl mx-auto py-24 px-6">
-            <h2 class="text-4xl font-black mb-16 text-center tracking-tighter uppercase italic">Prova Real de <span class="text-blue-500">Escala Neural:</span></h2>
-            
-            <div class="grid md:grid-cols-2 gap-10">
-                <div class="glass-panel p-4">
-                    <div class="aspect-video rounded-2xl overflow-hidden bg-gray-900 mb-6 relative border border-white/5">
-                        <video controls class="w-full h-full object-cover">
-                            <source src="../assets/img/vsl-parte1.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="px-4 pb-4">
-                        <h4 class="text-xl font-bold mb-2">Marcos Vinícius</h4>
-                        <p class="text-blue-400 text-sm mono mb-4 tracking-widest">>> RESULTADO: R$ 12.450/MÊS</p>
-                        <p class="text-gray-400 text-sm leading-relaxed">"O agente de automação do Synapse substituiu 3 funcionários de prospecção. O custo caiu 80% e as vendas dobraram."</p>
-                    </div>
-                </div>
-
-                <div class="glass-panel p-4">
-                    <div class="aspect-video rounded-2xl overflow-hidden bg-gray-900 mb-6 relative border border-white/5">
-                        <video controls class="w-full h-full object-cover">
-                            <source src="../assets/img/vsl-parte2.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="px-4 pb-4">
-                        <h4 class="text-xl font-bold mb-2">Carla Mendes</h4>
-                        <p class="text-blue-400 text-sm mono mb-4 tracking-widest">>> RESULTADO: 40H ECONOMIZADAS/SEM</p>
-                        <p class="text-gray-400 text-sm leading-relaxed">"O framework de voz clonada e roteirização automática é bizarro. Minha agência agora escala sem aumentar a equipe."</p>
-                    </div>
-                </div>
+            <div class="reveal">
+                <button class="glow-button bg-white text-black px-12 py-6 rounded-full font-black text-xl mb-4 uppercase tracking-tighter">
+                    Quero Ativar o Protocolo Agora
+                </button>
+                <p class="text-gray-500 text-sm flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"></path></svg>
+                    Acesso Criptografado e Vitalício
+                </p>
             </div>
-        </section>
-
-        <section class="max-w-4xl mx-auto py-32 px-6">
-            <div class="glass-panel p-16 md:p-24 text-center relative overflow-hidden border-blue-500/50">
-                <div class="absolute -top-20 -left-20 w-80 h-80 bg-blue-600/10 rounded-full blur-[100px]"></div>
-                
-                <h3 class="text-blue-400 font-bold uppercase tracking-[0.5em] text-xs mb-10">Licença Vitalícia</h3>
-                
-                <div class="text-gray-600 line-through text-3xl mb-4 italic mono">De R$ 997,00</div>
-                <div class="price-big font-black mb-8 tracking-tighter text-white">
-                    <span class="text-4xl md:text-6xl align-top italic text-blue-500">12x</span> 49,70
-                </div>
-                <p class="text-3xl text-gray-400 mb-16">ou <span class="text-white font-black underline decoration-blue-500">R$ 497,00</span> à vista</p>
-                
-                <a href="https://pay.hotmart.com/V103656596Y" class="cta-master block w-full py-10 rounded-3xl text-3xl font-black uppercase">
-                    Garanta Sua Vaga Agora
-                </a>
-            </div>
-        </section>
-
-        <section class="max-w-4xl mx-auto py-24 px-6">
-            <h2 class="text-3xl font-black mb-12 tracking-tight">Dúvidas <span class="text-blue-500 italic">Frequentes:</span></h2>
-            <div class="space-y-6">
-                <div class="glass-panel p-8">
-                    <p class="font-bold text-lg mb-2">Preciso saber programar?</p>
-                    <p class="text-gray-400 text-sm leading-relaxed">Absolutamente não. O Synapse entrega o código pronto. Você só precisa configurar e ativar.</p>
-                </div>
-                <div class="glass-panel p-8">
-                    <p class="font-bold text-lg mb-2">Em quanto tempo vejo resultados?</p>
-                    <p class="text-gray-400 text-sm leading-relaxed">A ativação dos agentes leva menos de 15 minutos. Os primeiros leads começam a chegar no mesmo dia.</p>
-                </div>
-            </div>
-        </section>
-
+        </div>
     </main>
 
-    <footer class="py-20 text-center opacity-20 border-t border-white/5">
-        <p class="mono text-[10px] tracking-[1em] uppercase">© 2026 Protocolo Synapse / Operação Dólar</p>
+    <section class="py-20 px-4">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="glass-panel p-8 reveal">
+                <div class="text-blue-500 mb-4 text-3xl">01</div>
+                <h3 class="text-xl font-bold mb-2">Escalabilidade Brutal</h3>
+                <p class="text-gray-400 text-sm">Estrutura preparada para aguentar 10.000 acessos simultâneos sem queda de conversão.</p>
+            </div>
+            <div class="glass-panel p-8 reveal">
+                <div class="text-blue-500 mb-4 text-3xl">02</div>
+                <h3 class="text-xl font-bold mb-2">Algoritmo Preditivo</h3>
+                <p class="text-gray-400 text-sm">Rastreamento de comportamento do usuário para antecipar a dor e oferecer a solução.</p>
+            </div>
+            <div class="glass-panel p-8 reveal">
+                <div class="text-blue-500 mb-4 text-3xl">03</div>
+                <h3 class="text-xl font-bold mb-2">Engenharia Social</h3>
+                <p class="text-gray-400 text-sm">Gatilhos mentais embutidos em cada pixel do design para máxima persuasão.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-10 text-center border-t border-white/5">
+        <p class="text-[10px] text-gray-600 tracking-widest uppercase">
+            © 2024 GUSTAVO CASTRO & SÓCIO DÓLAR. TODOS OS DIREITOS RESERVADOS.
+        </p>
     </footer>
 
+    <script>
+        const SynapseApp = {
+            init() {
+                this.revealOnScroll();
+                this.salesEngine();
+                this.protection();
+                console.log("Sócio Dólar: Sistema Inicializado.");
+            },
+
+            // Sistema de Aparição das seções
+            revealOnScroll() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('active');
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+            },
+
+            // Engine de Prova Social (Aumenta vendas)
+            salesEngine() {
+                const names = ['André', 'Fernanda', 'Lucas', 'Beatriz', 'Ricardo', 'Patrícia'];
+                const places = ['Goiânia', 'São Paulo', 'Belo Horizonte', 'Lisboa', 'Flórida'];
+
+                setInterval(() => {
+                    const name = names[Math.floor(Math.random() * names.length)];
+                    const place = places[Math.floor(Math.random() * places.length)];
+                    this.showNotification(`${name} de ${place} ativou o Synapse agora mesmo!`);
+                }, 12000);
+            },
+
+            showNotification(msg) {
+                const notification = document.createElement('div');
+                notification.className = 'fixed bottom-5 left-5 glass-panel px-6 py-4 z-50 text-xs font-bold border-l-4 border-blue-500 translate-y-20 transition-all duration-500 ease-out';
+                notification.innerHTML = `<span class="text-blue-500">🔥</span> ${msg}`;
+                document.body.appendChild(notification);
+                
+                setTimeout(() => notification.classList.remove('translate-y-20'), 100);
+                setTimeout(() => {
+                    notification.classList.add('translate-y-20');
+                    setTimeout(() => notification.remove(), 500);
+                }, 4500);
+            },
+
+            // Proteção contra curiosos
+            protection() {
+                document.addEventListener('contextmenu', event => event.preventDefault());
+                document.onkeydown = function(e) {
+                    if(e.keyCode == 123) return false; // F12
+                    if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
+                }
+            }
+        };
+
+        window.onload = () => SynapseApp.init();
+    </script>
 </body>
 </html>
