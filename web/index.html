@@ -3,33 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protocolo Synapse | Engenharia Neural</title>
+    <title>Protocolo Synapse | Comando Neural de Elite</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <style>
-        :root { --accent: #3b82f6; --bg: #020617; }
-        body { background-color: var(--bg); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
-        
-        /* VIDEO DE FUNDO - CORRIGIDO */
+        :root { --blue-main: #3b82f6; --blue-dark: #1d4ed8; --bg-dark: #020617; }
+        body { background-color: var(--bg-dark); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+
+        /* VIDEO BACKGROUND SYSTEM */
         #video-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; z-index: -20; opacity: 0.5; filter: brightness(0.6) contrast(1.2);
+            object-fit: cover; z-index: -50; opacity: 0.45; filter: brightness(0.5) saturate(1.2);
         }
 
-        .glass-premium { 
-            background: rgba(15, 23, 42, 0.7); 
-            backdrop-filter: blur(20px); 
-            border: 1px solid rgba(59, 130, 246, 0.2);
+        /* GLASSMORPHISM UI */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(25px);
+            border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 2rem;
+            transition: all 0.4s ease;
+        }
+        .glass-panel:hover { border-color: rgba(59, 130, 246, 0.5); box-shadow: 0 0 40px rgba(59, 130, 246, 0.15); }
+
+        /* NEON ELEMENTS */
+        .neon-text { text-shadow: 0 0 15px rgba(59, 130, 246, 0.8), 0 0 30px rgba(59, 130, 246, 0.4); }
+        .neon-border { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+
+        /* BUTTONS */
+        .cta-master {
+            background: linear-gradient(135deg, var(--blue-main) 0%, var(--blue-dark) 100%);
+            animation: pulse-glow 2.5s infinite; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .cta-master:hover { transform: scale(1.05) translateY(-5px); filter: brightness(1.2); }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(59, 130, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
         }
 
-        .btn-cta {
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.4);
-        }
-        .btn-cta:hover { transform: scale(1.05); box-shadow: 0 0 50px rgba(59, 130, 246, 0.6); }
+        /* TYPOGRAPHY SCALING */
+        .ultra-title { font-size: clamp(3.5rem, 12vw, 9rem); line-height: 0.85; letter-spacing: -0.06em; }
+        .price-big { font-size: clamp(4.5rem, 18vw, 10rem); line-height: 0.8; }
 
-        .price-hero { font-size: clamp(4rem, 18vw, 8rem); line-height: 0.8; letter-spacing: -0.05em; }
+        /* CUSTOM SCROLLBAR */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #1e3a8a; border-radius: 10px; }
     </style>
 </head>
 <body>
@@ -38,67 +58,113 @@
         <source src="../assets/img/vsl-parte1.mp4" type="video/mp4">
     </video>
 
-    <main class="max-w-5xl mx-auto px-6 pt-20 pb-32">
-        
-        <header class="text-center mb-16">
-            <div class="inline-block glass-premium px-4 py-1 rounded-full text-blue-400 text-[10px] font-black mb-8 tracking-[0.4em] uppercase">
-                Sistema_Synapse_v1.0
-            </div>
-            <h1 class="text-6xl md:text-8xl font-black mb-8 leading-none tracking-tighter">
-                ESCRAVIZE A <br> <span class="text-blue-500 italic">TECNOLOGIA.</span>
-            </h1>
-        </header>
+    <div class="w-full bg-blue-600/20 backdrop-blur-md border-b border-blue-500/30 py-2 text-center text-[10px] font-bold tracking-[0.4em] uppercase z-50 relative">
+        Aviso: 14 licenças restantes para o seu IP.
+    </div>
 
-        <section class="max-w-4xl mx-auto mb-24">
-            <div class="glass-premium p-2 rounded-[2.5rem] border border-blue-500/30 shadow-2xl shadow-blue-500/10">
-                <div class="aspect-video rounded-[2.2rem] overflow-hidden bg-black relative">
+    <main class="relative z-10">
+        
+        <section class="max-w-6xl mx-auto pt-32 pb-24 px-6 text-center">
+            <div class="inline-block glass-panel px-6 py-2 mb-10 border-blue-500/40">
+                <p class="text-blue-400 text-[10px] font-black tracking-[0.5em] uppercase mono">Status: Protocolo_Online_v2.0</p>
+            </div>
+            
+            <h1 class="ultra-title font-black mb-12">
+                PARE DE SER <br> <span class="text-blue-500 neon-text">OPERÁRIO.</span>
+            </h1>
+            
+            <p class="text-gray-400 text-xl md:text-3xl max-w-3xl mx-auto mb-16 font-light leading-relaxed">
+                A Inteligência Artificial não vai te substituir. <br>
+                <span class="text-white font-bold italic">Mas o homem que usa IA vai.</span>
+            </p>
+
+            <div class="max-w-5xl mx-auto glass-panel p-3 mb-20 neon-border">
+                <div class="aspect-video rounded-[1.8rem] overflow-hidden relative bg-black">
                     <video autoplay muted loop playsinline class="w-full h-full object-cover">
                         <source src="../assets/img/vsl-parte2.mp4" type="video/mp4">
                     </video>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                    <div class="absolute bottom-6 left-8">
-                        <p class="text-blue-500 font-mono text-[10px] animate-pulse">● LIVE_FEED: AGENTE_AUTONOMO_ATIVO</p>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-10 left-10 text-left">
+                        <p class="text-blue-500 font-mono text-xs mb-2">>> DEMONSTRAÇÃO_DO_SISTEMA_AGENTE</p>
+                        <h2 class="text-3xl font-black uppercase italic">Synapse Core Engine</h2>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <section class="glass-premium rounded-[3rem] p-10 md:p-16 mb-24 relative overflow-hidden text-center">
-            <div class="grid md:grid-cols-2 gap-12 items-center text-left">
-                <div>
-                    <h2 class="text-3xl font-black mb-6 italic">OFERTA <span class="text-blue-500">LIMITADA.</span></h2>
-                    <ul class="space-y-4 text-gray-300 text-sm">
-                        <li><span class="text-blue-500 mr-2">✓</span> Licença Vitalícia Synapse</li>
-                        <li><span class="text-blue-500 mr-2">✓</span> Framework de Escala Automatizada</li>
-                        <li><span class="text-blue-500 mr-2">✓</span> Acesso ao Círculo de Elite</li>
-                    </ul>
-                </div>
-                <div class="text-center md:text-right">
-                    <div class="text-gray-600 line-through text-xl mb-2">R$ 997,00</div>
-                    <div class="flex items-start justify-center md:justify-end mb-4">
-                        <span class="text-3xl font-black mt-4 mr-2 text-blue-500 italic">12x</span>
-                        <span class="price-hero font-black">49,70</span>
-                    </div>
-                    <p class="text-xl text-gray-400">ou R$ 497 à vista</p>
-                </div>
-            </div>
-
-            <a href="https://pay.hotmart.com/V103656596Y" class="btn-cta mt-12 block w-full text-center py-8 rounded-2xl font-black text-3xl uppercase tracking-tighter">
-                Ativar Meu Acesso Agora
+            <a href="https://pay.hotmart.com/V103656596Y" class="cta-master inline-block px-16 py-8 rounded-3xl text-3xl font-black uppercase tracking-tighter text-white">
+                Ativar Meu Exército de Agentes
             </a>
         </section>
 
-        <div class="grid md:grid-cols-2 gap-8">
-            <div class="glass-premium p-8 rounded-[2rem] border-l-4 border-blue-600">
-                <p class="font-black text-blue-500 mb-2">M. Vasconcelos</p>
-                <p class="text-gray-300 italic">"Ativei o agente de prospecção e o resultado foi imediato. R$ 7.000,00 em contratos na primeira semana."</p>
+        <section class="max-w-6xl mx-auto py-24 px-6">
+            <h2 class="text-4xl font-black mb-16 text-center tracking-tighter uppercase italic">Prova Real de <span class="text-blue-500">Escala Neural:</span></h2>
+            
+            <div class="grid md:grid-cols-2 gap-10">
+                <div class="glass-panel p-4">
+                    <div class="aspect-video rounded-2xl overflow-hidden bg-gray-900 mb-6 relative border border-white/5">
+                        <video controls class="w-full h-full object-cover">
+                            <source src="../assets/img/vsl-parte1.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="px-4 pb-4">
+                        <h4 class="text-xl font-bold mb-2">Marcos Vinícius</h4>
+                        <p class="text-blue-400 text-sm mono mb-4 tracking-widest">>> RESULTADO: R$ 12.450/MÊS</p>
+                        <p class="text-gray-400 text-sm leading-relaxed">"O agente de automação do Synapse substituiu 3 funcionários de prospecção. O custo caiu 80% e as vendas dobraram."</p>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-4">
+                    <div class="aspect-video rounded-2xl overflow-hidden bg-gray-900 mb-6 relative border border-white/5">
+                        <video controls class="w-full h-full object-cover">
+                            <source src="../assets/img/vsl-parte2.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="px-4 pb-4">
+                        <h4 class="text-xl font-bold mb-2">Carla Mendes</h4>
+                        <p class="text-blue-400 text-sm mono mb-4 tracking-widest">>> RESULTADO: 40H ECONOMIZADAS/SEM</p>
+                        <p class="text-gray-400 text-sm leading-relaxed">"O framework de voz clonada e roteirização automática é bizarro. Minha agência agora escala sem aumentar a equipe."</p>
+                    </div>
+                </div>
             </div>
-            <div class="glass-premium p-8 rounded-[2rem] border-l-4 border-blue-600">
-                <p class="font-black text-blue-500 mb-2">Ricardo G.</p>
-                <p class="text-gray-300 italic">"A clonagem de voz mudou o jogo. O que eu levava dias para gravar, a IA faz em segundos."</p>
+        </section>
+
+        <section class="max-w-4xl mx-auto py-32 px-6">
+            <div class="glass-panel p-16 md:p-24 text-center relative overflow-hidden border-blue-500/50">
+                <div class="absolute -top-20 -left-20 w-80 h-80 bg-blue-600/10 rounded-full blur-[100px]"></div>
+                
+                <h3 class="text-blue-400 font-bold uppercase tracking-[0.5em] text-xs mb-10">Licença Vitalícia</h3>
+                
+                <div class="text-gray-600 line-through text-3xl mb-4 italic mono">De R$ 997,00</div>
+                <div class="price-big font-black mb-8 tracking-tighter text-white">
+                    <span class="text-4xl md:text-6xl align-top italic text-blue-500">12x</span> 49,70
+                </div>
+                <p class="text-3xl text-gray-400 mb-16">ou <span class="text-white font-black underline decoration-blue-500">R$ 497,00</span> à vista</p>
+                
+                <a href="https://pay.hotmart.com/V103656596Y" class="cta-master block w-full py-10 rounded-3xl text-3xl font-black uppercase">
+                    Garanta Sua Vaga Agora
+                </a>
             </div>
-        </div>
+        </section>
+
+        <section class="max-w-4xl mx-auto py-24 px-6">
+            <h2 class="text-3xl font-black mb-12 tracking-tight">Dúvidas <span class="text-blue-500 italic">Frequentes:</span></h2>
+            <div class="space-y-6">
+                <div class="glass-panel p-8">
+                    <p class="font-bold text-lg mb-2">Preciso saber programar?</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">Absolutamente não. O Synapse entrega o código pronto. Você só precisa configurar e ativar.</p>
+                </div>
+                <div class="glass-panel p-8">
+                    <p class="font-bold text-lg mb-2">Em quanto tempo vejo resultados?</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">A ativação dos agentes leva menos de 15 minutos. Os primeiros leads começam a chegar no mesmo dia.</p>
+                </div>
+            </div>
+        </section>
 
     </main>
+
+    <footer class="py-20 text-center opacity-20 border-t border-white/5">
+        <p class="mono text-[10px] tracking-[1em] uppercase">© 2026 Protocolo Synapse / Operação Dólar</p>
+    </footer>
+
 </body>
 </html>
